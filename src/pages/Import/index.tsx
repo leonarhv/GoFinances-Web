@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import filesize from 'filesize';
-
 import fileSize from 'filesize';
 import Header from '../../components/Header';
 import FileList from '../../components/FileList';
@@ -49,7 +47,6 @@ const Import: React.FC = () => {
     }));
 
     setUploadedFiles(uploadFiles);
-    console.log(uploadFiles);
   }
 
   return (
