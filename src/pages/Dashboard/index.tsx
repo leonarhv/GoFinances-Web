@@ -49,6 +49,18 @@ const Dashboard: React.FC = () => {
     loadTransactions();
   }, []);
 
+  function formatDate(date: Date): string {
+    const d = new Date(date);
+
+    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    const mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+
+    const newDate = `${da}/${mo}/${ye}`;
+
+    return newDate;
+  }
+
   return (
     <>
       <Header />
@@ -60,8 +72,7 @@ const Dashboard: React.FC = () => {
               <img src={income} alt="Income" />
             </header>
             <h1 data-testid="balance-income">
-              R$
-              {balance.income}
+              {formatValue(Number(balance.income))}
             </h1>
           </Card>
           <Card>
@@ -70,8 +81,7 @@ const Dashboard: React.FC = () => {
               <img src={outcome} alt="Outcome" />
             </header>
             <h1 data-testid="balance-outcome">
-              R$
-              {balance.outcome}
+              {formatValue(Number(balance.outcome))}
             </h1>
           </Card>
           <Card total>
@@ -80,8 +90,7 @@ const Dashboard: React.FC = () => {
               <img src={total} alt="Total" />
             </header>
             <h1 data-testid="balance-total">
-              R$
-              {balance.total}
+              {formatValue(Number(balance.total))}
             </h1>
           </Card>
         </CardContainer>
@@ -103,11 +112,10 @@ const Dashboard: React.FC = () => {
                   <td className="title">{transaction.title}</td>
                   <td className={transaction.type}>
                     {transaction.type === 'outcome' && <>- </>}
-                    R$
-                    {transaction.value}
+                    {formatValue(Number(transaction.value))}
                   </td>
                   <td>{transaction.category.title}</td>
-                  <td>20/04/2020</td>
+                  <td>{formatDate(transaction.created_at)}</td>
                 </tr>
               ))}
             </tbody>
